@@ -127,7 +127,7 @@
         <div class="nav-top">
             <div class="logo">Glamour Combo</div>
             <div class="auth-container">
-                <!-- 📲 লাইভ অ্যাপ ইন্সটল বাটন (শর্তসাপেক্ষে দেখা যাবে) -->
+                <!-- 📲 লাইভ অ্যাপ ইন্সটল বাটন -->
                 <button id="pwa-install-btn" onclick="installApp()"><i class="fas fa-download"></i> অ্যাপ ডাউনলোড</button>
                 <span id="user-info"></span>
                 <button id="auth-main-btn" class="login-btn" onclick="openAuthModal()">লগইন / সাইনআপ</button>
@@ -198,7 +198,7 @@
 
                     <div class="btn-group">
                         <a href="#" class="action-btn view-btn" onclick="alert('প্রডাক্ট ডিটেইলস: প্রিমিয়াম কোয়ালিটি ফেব্রিক্স এবং এক্সক্লুসিভ ডিজাইন কম্বো।')">বিস্তারিত</a>
-                        <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অर्डर করুন</a>
                     </div>
                 </div>
             </div>
@@ -247,21 +247,22 @@
 
     <!-- Firebase and PWA App Logic -->
     <script>
-        // ⚠️ আপনার Firebase কনফিগারেশন নিচে বসান
+        // 🔒 আপনার সরবরাহকৃত আসল Firebase কনফিগারেশন সরাসরি এখানে যুক্ত করা হয়েছে
         const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
+            apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
+            authDomain: "glamour-combo.firebaseapp.com",
+            projectId: "glamour-combo",
+            storageBucket: "glamour-combo.firebasestorage.app",
+            messagingSenderId: "722013517072",
+            appId: "1:722013517072:web:2476845a3abf8a73f3a195",
+            measurementId: "G-NP50MQ7024"
         };
         
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
         let currentUserEmail = null;
 
-        // 📲 AUTOMATIC SERVICE WORKER INJECTION FOR GITHUB PWA
+        // AUTOMATIC SERVICE WORKER INJECTION FOR GITHUB PWA
         if ('serviceWorker' in navigator) {
             const swCode = `self.addEventListener('fetch', function(e) { e.respondWith(fetch(e.request).catch(function() { return new Response('Offline'); })); });`;
             const blob = new Blob([swCode], { type: 'application/javascript' });
@@ -272,7 +273,27 @@
         // PWA Installation Trigger
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
+            e.preventDefault(// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
+  authDomain: "glamour-combo.firebaseapp.com",
+  projectId: "glamour-combo",
+  storageBucket: "glamour-combo.firebasestorage.app",
+  messagingSenderId: "722013517072",
+  appId: "1:722013517072:web:2476845a3abf8a73f3a195",
+  measurementId: "G-NP50MQ7024"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app););
             deferredPrompt = e;
             document.getElementById('pwa-install-btn').style.display = 'inline-flex';
         });
