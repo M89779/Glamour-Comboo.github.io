@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>অনন্য শাড়ি বাজার | বাংলাদেশের সেরা ই-কমার্স শপ</title>
+    <title>Glamour Combo | বাংলাদেশের সেরা ই-কমার্স শপ</title>
     
     <!-- Firebase Libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
@@ -13,14 +13,14 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f4f6; color: #333; }
         
-        /* Top Bar */
+        /* Top Bar - Responsive */
         .top-bar { background-color: #f1f1f4; padding: 5px 20px; text-align: center; font-size: 11px; }
         .top-bar a { color: #666; text-decoration: none; margin: 0 8px; display: inline-block; }
         
-        /* Main Navigation */
+        /* Main Navigation - Mobile Responsive Fixed */
         nav { background-color: #ffffff; padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid #ff6e40; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-size: 20px; font-weight: bold; color: #ff6e40; text-transform: uppercase; }
+        .logo { font-size: 20px; font-weight: bold; color: #ff6e40; text-transform: uppercase; white-space: nowrap; }
         
         /* Auth Styles */
         .auth-container { display: flex; align-items: center; gap: 10px; }
@@ -38,59 +38,76 @@
         .switch-text { font-size: 12px; margin-top: 15px; color: #666; cursor: pointer; text-decoration: underline; }
         
         .search-box { width: 100%; display: flex; }
-        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; outline: none; }
-        .search-box button { padding: 10px 20px; background: #ff6e40; border: none; color: white; border-radius: 0 4px 4px 0; cursor: pointer; }
+        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
+        .search-box button { padding: 10px 20px; background: #ff6e40; border: none; color: white; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 14px; }
 
+        /* Computer/Desktop view adjustments */
         @media (min-width: 768px) {
-            nav { flex-direction: row; justify-content: space-between; padding: 15px 50px; gap: 0; }
+            nav { flex-direction: row; justify-content: space-between; align-items: center; padding: 15px 50px; gap: 0; }
             .nav-top { width: auto; gap: 20px; }
             .search-box { width: 45%; }
-            .top-bar { text-align: right; padding: 5px 50px; }
+            .top-bar { text-align: right; padding: 5px 50px; font-size: 12px; }
+            .top-bar a { margin-left: 15px; margin-right: 0; }
         }
 
-        /* Banner */
+        /* Mega Banner */
         .hero-banner { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/Lh0YQwd9/IMG-7723.png') no-repeat center center/cover; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 15px; }
-        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; }
-        .hero-banner p { font-size: 15px; margin-bottom: 20px; }
-        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; }
+        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .hero-banner p { font-size: 15px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 15px; }
 
-        /* Features */
+        @media (min-width: 768px) {
+            .hero-banner h1 { font-size: 40px; }
+            .hero-banner p { font-size: 18px; }
+        }
+
+        /* Badges */
         .features { display: flex; flex-wrap: wrap; justify-content: space-around; background: white; padding: 15px; margin: 15px auto; max-width: 1200px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); gap: 10px; }
-        .feat-item { font-weight: bold; color: #555; font-size: 13px; }
+        .feat-item { font-weight: bold; color: #555; font-size: 13px; white-space: nowrap; }
 
-        /* Store Products */
+        /* Main Store Container */
         .container { max-width: 1200px; margin: 0 auto; padding: 10px 15px; }
         .section-title { font-size: 20px; color: #222; margin-bottom: 20px; border-left: 4px solid #ff6e40; padding-left: 10px; }
         
+        /* Product Grid System */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 40px; }
-        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
+        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; } }
         
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
         .card img { width: 100%; height: 200px; object-fit: cover; }
-        .tag { position: absolute; top: 10px; left: 10px; background: #ff6e40; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; }
-        .details { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .p-title { font-size: 13px; font-weight: 600; color: #333; height: 38px; overflow: hidden; margin-bottom: 5px; }
-        .p-price { font-size: 16px; font-weight: bold; color: #ff6e40; margin-bottom: 10px; }
+        @media (min-width: 480px) { .card img { height: 250px; } }
         
+        .tag { position: absolute; top: 10px; left: 10px; background: #ff6e40; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .details { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .p-title { font-size: 13px; font-weight: 600; color: #333; height: 38px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
+        .p-price { font-size: 16px; font-weight: bold; color: #ff6e40; margin-bottom: 10px; }
+        .p-old-price { font-size: 11px; color: #999; text-decoration: line-through; margin-left: 5px; }
+        
+        /* Buttons Group */
         .btn-group { display: flex; gap: 5px; width: 100%; }
-        .action-btn { flex: 1; text-align: center; padding: 8px 0; font-size: 11px; font-weight: bold; text-decoration: none; border-radius: 4px; }
+        .action-btn { flex: 1; text-align: center; padding: 8px 0; font-size: 11px; font-weight: bold; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
         .view-btn { background: #fff1ec; color: #ff6e40; border: 1px solid #ff6e40; }
         .buy-btn { background: #25d366; color: white; }
 
+        /* Footer */
         footer { background: #2c3e50; color: white; padding: 30px 20px; text-align: center; margin-top: 5px; font-size: 13px; }
+        .footer-links a { color: #bbb; text-decoration: none; margin: 0 5px; display: inline-block; }
     </style>
 </head>
 <body>
 
-   <div class="top-bar">
-    <a href="https://wa.me/8801408765351?text=হ্যালো, আমার কাস্টমার কেয়ার সাপোর্ট প্রয়োজন।" target="_blank">📞 কাস্টমার কেয়ার (হোয়াটসঅ্যাপ)</a> | 
-    <a href="tel:+8801408765351">📱 সরাসরি কল করুন: 01408765351</a> | 
-    <a href="#" onclick="alert('আপনার অর্ডারটি ট্র্যাক করতে আমাদের হোয়াটসঅ্যাপ নম্বরে যোগাযোগ করুন।')">📦 ট্র্যাক মাই অর্ডার</a>
-</div>
+    <!-- 📞 সচল কাস্টমার কেয়ার ও কলিং সিস্টেম -->
+    <div class="top-bar">
+        <a href="https://wa.me/8801408765351?text=হ্যালো, Glamour Combo। আমার কাস্টমার কেয়ার সাপোর্ট প্রয়োজন।" target="_blank">💬 কাস্টমার কেয়ার (হোয়াটসঅ্যাপ)</a> | 
+        <a href="tel:+8801408765351">📞 সরাসরি কল: 01408765351</a> | 
+        <a href="#" onclick="alert('আপনার অর্ডারটি বর্তমানে কোন অবস্থায় আছে তা জানতে সরাসরি আমাদের হোয়াটসঅ্যাপ নম্বরে মেসেজ দিন।')">📦 ট্র্যাক মাই অর্ডার</a>
+    </div>
 
+    <!-- 🌐 নতুন লোগো এবং নেভিগেশন বার -->
     <nav>
         <div class="nav-top">
-            <div class="logo">অনন্য শাড়ি বাজার</div>
+            <div class="logo">Glamour Combo</div>
             <div class="auth-container">
                 <span id="user-info"></span>
                 <button id="auth-main-btn" class="login-btn" onclick="openAuthModal()">লগইন / সাইনআপ</button>
@@ -98,12 +115,12 @@
             </div>
         </div>
         <div class="search-box">
-            <input type="text" placeholder="দারাজের মতো শাড়ি খুঁজুন...">
+            <input type="text" placeholder="কম্বো অফার বা প্রডাক্ট খুঁজুন...">
             <button>খুঁজুন</button>
         </div>
     </nav>
 
-    <!-- Authentication Modal -->
+    <!-- 🔐 আসল Authentication Modal Popup (Firebase-এর জন্য) -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeAuthModal()">&times;</span>
@@ -115,14 +132,15 @@
         </div>
     </div>
 
+    <!-- 🖼️ কাস্টমাইজড মেইন ব্যানার -->
     <div class="hero-banner">
-        <h1>অনন্য শাড়ি বুটিক হাউজ</h1>
-        <p>লঞ্চিং অফার: প্রতিটি শাড়িতে আকর্ষণীয় ছাড় এবং ফ্রি ডেলিভারি!</p>
+        <h1>Glamour Combo</h1>
+        <p>লঞ্চিং অফার: প্রতিটি কম্বোতে আকর্ষণীয় ছাড় এবং ফ্রি ডেলিভারি!</p>
         <a href="#store" class="shop-now-btn">এখনই কিনুন</a>
     </div>
 
     <div class="features">
-        <div class="feat-item">🛡️ ১০০% আসল কাপড়</div>
+        <div class="feat-item">🛡️ ১০০% আসল প্রডাক্ট</div>
         <div class="feat-item">🚚 দ্রুততম হোম ডেলিভারি</div>
         <div class="feat-item">💵 ক্যাশ অন ডেলিভারি সুবিধা</div>
     </div>
@@ -131,33 +149,65 @@
         <h2 class="section-title">আজকের ধামাকা অফার (Flash Sale)</h2>
         <div class="grid">
             
-            <!-- শাড়ি ১ -->
+            <!-- প্রোডাক্ট ১ -->
             <div class="card">
                 <span class="tag">২০% ছাড়</span>
-                <img src="https://i.ibb.co/Lh0YQwd9/IMG-7723.png" alt="জামদানি">
+                <img src="https://i.ibb.co/Lh0YQwd9/IMG-7723.png" alt="Glamour Combo 1">
                 <div class="details">
-                    <div class="p-title">প্রিমিয়াম ঢাকাই হাফ সিল্ক জামদানি শাড়ি - রানি গোলাপী</div>
+                    <div class="p-title">প্রিমিয়াম এক্সক্লুসিভ গ্ল্যামার কম্বো প্যাক - রানি গোলাপী স্পেশাল</div>
                     <div>
-                        <div class="p-price">৳ ২,৮০০</div>
+                        <div class="p-price">৳ ২,৮০০ <span class="p-old-price">৳ ৩,৫০০</span></div>
                         <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('শাড়ির সুতা: হাফ সিল্ক, দৈর্ঘ্য: ১২ হাত।')">বাস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই রানি গোলাপী জামদানি শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                            <a href="#" class="action-btn view-btn" onclick="alert('প্রডাক্ট ডিটেইলস: প্রিমিয়াম কোয়ালিটি ফেব্রিক্স এবং এক্সক্লুসিভ ডিজাইন কম্বো।')"> can বিস্তারিত</a>
+                            <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- শাড়ি ২ -->
+            <!-- প্রোডাক্ট ২ -->
             <div class="card">
                 <span class="tag">Hot</span>
-                <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" alt="সিল্ক">
+                <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" alt="Glamour Combo 2">
                 <div class="details">
-                    <div class="p-title">খাঁটি তসর সিল্ক শাড়ি - এক্সক্লুসিভ পার্টি ডিজাইন</div>
+                    <div class="p-title">খাঁটি তসর সিল্ক কালার ম্যাচিং কম্বো - এক্সক্লুসিভ পার্টি কালেকশন</div>
                     <div>
-                        <div class="p-price">৳ ৪,২০০</div>
+                        <div class="p-price">৳ ৪,২০০ <span class="p-old-price">৳ ৫,০০০</span></div>
                         <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('পার্টি ওয়্যার সিল্ক শাড়ি, ব্লাউজ পিস সহ।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই তসর সিল্ক শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                            <a href="#" class="action-btn view-btn" onclick="alert('পার্টি ওয়্যার স্পেশাল ডিজাইন কালেকশন।')">বিস্তারিত</a>
+                            <a href="https://wa.me/8801408765351?text=আমি এই তসর সিল্ক কালার কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- প্রোডাক্ট ৩ -->
+            <div class="card">
+                <span class="tag">নতুন</span>
+                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400" alt="Glamour Combo 3">
+                <div class="details">
+                    <div class="p-title">হ্যান্ডলুম টাঙ্গাইল ব্লক প্রিন্ট স্টাইলিশ কম্বো সেট</div>
+                    <div>
+                        <div class="p-price">৳ ১,৪ Fifty</div>
+                        <div class="btn-group">
+                            <a href="#" class="action-btn view-btn" onclick="alert('১০০% সুতি আরামদায়ক অল-সিজন কম্বো।')">বিস্তারিত</a>
+                            <a href="https://wa.me/8801408765351?text=আমি এই টাঙ্গাইল ব্লক প্রিন্ট কম্বো সেটটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- প্রোডাক্ট ৪ -->
+            <div class="card">
+                <span class="tag">১০% ছাড়</span>
+                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400" alt="Glamour Combo 4">
+                <div class="details">
+                    <div class="p-title">বউভাত ও ব্রাইডাল স্পেশাল রয়েল রেড কম্বো লাক্সারি প্যাক</div>
+                    <div>
+                        <div class="p-price">৳ ৬,৫০০ <span class="p-old-price">৳ ৭,২০০</span></div>
+                        <div class="btn-group">
+                            <a href="#" class="action-btn view-btn" onclick="alert('বউভাত বা যেকোনো বড় উৎসবের জন্য প্রিমিয়াম লাক্সারি কম্বো প্যাক।')">বিস্তারিত</a>
+                            <a href="https://wa.me/8801408765351?text=আমি এই বেনারসি স্টাইলের রয়েল রেড কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                         </div>
                     </div>
                 </div>
@@ -166,21 +216,24 @@
         </div>
     </div>
 
+    <!-- 👣 নতুন ফুটার সেকশন -->
     <footer>
-        <p>© 2026 অনন্য শাড়ি বাজার। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
+        <div class="footer-links">
+            <a href="#">আমাদের সম্পর্কে</a> | <a href="#">প্রাইভেসি পলিসি</a> | <a href="#">শর্তাবলী</a>
+        </div>
+        <p style="margin-top: 15px;">© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
 
-    <!-- Firebase Script Logic -->
+    <!-- 🧠 Firebase Configuration and Logic Script -->
     <script>
-        // আপনার পাঠানো আসল ফায়ারবেস কনফিগারেশনটি এখানে বসানো হয়েছে
+        // ⚠️ আপনার Firebase কনসোল থেকে পাওয়া আসল কোডটি নিচের ব্র্যাকেটের { } ভেতরে বসিয়ে দিন
         const firebaseConfig = {
-            apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
-            authDomain: "glamour-combo.firebaseapp.com",
-            projectId: "glamour-combo",
-            storageBucket: "glamour-combo.firebasestorage.app",
-            messagingSenderId: "722013517072",
-            appId: "1:722013517072:web:2476845a3abf8a73f3a195",
-            measurementId: "G-NP50MQ7024"
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_AUTH_DOMAIN",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_STORAGE_BUCKET",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
         };
         
         // Initialize Firebase
@@ -199,6 +252,7 @@
             document.getElementById('switch-auth-text').innerText = isLoginMode ? "নতুন অ্যাকাউন্ট তৈরি করতে চান? সাইনআপ করুন" : "আগে থেকেই অ্যাকাউন্ট আছে? লগইন করুন";
         }
 
+        // Handle Login and Signup
         function handleAuth() {
             const email = document.getElementById('auth-email').value;
             const password = document.getElementById('auth-password').value;
@@ -218,6 +272,7 @@
 
         function logoutUser() { auth.signOut().then(() => alert('লগআউট করা হয়েছে!')); }
 
+        // Realtime Auth State Monitor
         auth.onAuthStateChanged(user => {
             const userInfo = document.getElementById('user-info');
             const authMainBtn = document.getElementById('auth-main-btn');
