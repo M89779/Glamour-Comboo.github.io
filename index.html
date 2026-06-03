@@ -5,19 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glamour Combo | বাংলাদেশের সেরা ই-কমার্স শপ</title>
     
+    <!-- PWA / Mobile App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Glamour Combo">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/Lh0YQwd9/IMG-7723.png">
+    
+    <!-- Injecting Manifest dynamically for PWA without external file -->
+    <link rel="manifest" href='data:application/json,{"name":"Glamour Combo E-Shop","short_name":"Glamour Combo","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#ff6e40","icons":[{"src":"https://i.ibb.co/Lh0YQwd9/IMG-7723.png","sizes":"512x512","type":"image/png"}]}'>
+
     <!-- Firebase Libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f4f6; color: #333; }
         
-        /* Top Bar - Responsive */
+        /* Top Bar */
         .top-bar { background-color: #f1f1f4; padding: 5px 20px; text-align: center; font-size: 11px; }
         .top-bar a { color: #666; text-decoration: none; margin: 0 8px; display: inline-block; }
         
-        /* Main Navigation - Mobile Responsive Fixed */
+        /* Navigation */
         nav { background-color: #ffffff; padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid #ff6e40; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
         .logo { font-size: 20px; font-weight: bold; color: #ff6e40; text-transform: uppercase; white-space: nowrap; }
@@ -27,6 +37,10 @@
         .login-btn, .logout-btn { background-color: #ff6e40; color: white !important; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; border: none; }
         .logout-btn { background-color: #e74c3c; display: none; }
         #user-info { font-size: 13px; font-weight: bold; color: #2c3e50; display: none; }
+
+        /* PWA Install Banner Button Style */
+        #pwa-install-btn { display: none; background: #2c3e50; color: white; border: none; padding: 8px 15px; border-radius: 20px; font-weight: bold; font-size: 12px; cursor: pointer; align-items: center; gap: 5px; animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-5px);} 60% {transform: translateY(-3px);} }
 
         /* Modal Popup for Login */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
@@ -41,74 +55,80 @@
         .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
         .search-box button { padding: 10px 20px; background: #ff6e40; border: none; color: white; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 14px; }
 
-        /* Computer/Desktop view adjustments */
         @media (min-width: 768px) {
             nav { flex-direction: row; justify-content: space-between; align-items: center; padding: 15px 50px; gap: 0; }
             .nav-top { width: auto; gap: 20px; }
             .search-box { width: 45%; }
             .top-bar { text-align: right; padding: 5px 50px; font-size: 12px; }
-            .top-bar a { margin-left: 15px; margin-right: 0; }
         }
 
-        /* Mega Banner */
+        /* Banner */
         .hero-banner { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/Lh0YQwd9/IMG-7723.png') no-repeat center center/cover; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 15px; }
-        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
-        .hero-banner p { font-size: 15px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
-        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 15px; }
+        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; }
+        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; }
 
-        @media (min-width: 768px) {
-            .hero-banner h1 { font-size: 40px; }
-            .hero-banner p { font-size: 18px; }
-        }
-
-        /* Badges */
         .features { display: flex; flex-wrap: wrap; justify-content: space-around; background: white; padding: 15px; margin: 15px auto; max-width: 1200px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); gap: 10px; }
-        .feat-item { font-weight: bold; color: #555; font-size: 13px; white-space: nowrap; }
+        .feat-item { font-weight: bold; color: #555; font-size: 13px; }
 
-        /* Main Store Container */
+        /* Store Container */
         .container { max-width: 1200px; margin: 0 auto; padding: 10px 15px; }
         .section-title { font-size: 20px; color: #222; margin-bottom: 20px; border-left: 4px solid #ff6e40; padding-left: 10px; }
         
-        /* Product Grid System */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 40px; }
-        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; } }
+        /* Grid System */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; margin-bottom: 40px; }
         
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
-        .card img { width: 100%; height: 200px; object-fit: cover; }
-        @media (min-width: 480px) { .card img { height: 250px; } }
+        /* Interactive Product Card */
+        .card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.06); transition: 0.3s; position: relative; display: flex; flex-direction: column; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .card img { width: 100%; height: 280px; object-fit: cover; }
         
-        .tag { position: absolute; top: 10px; left: 10px; background: #ff6e40; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
-        .details { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .p-title { font-size: 13px; font-weight: 600; color: #333; height: 38px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
-        .p-price { font-size: 16px; font-weight: bold; color: #ff6e40; margin-bottom: 10px; }
-        .p-old-price { font-size: 11px; color: #999; text-decoration: line-through; margin-left: 5px; }
+        .tag { position: absolute; top: 15px; left: 15px; background: #ff6e40; color: white; font-size: 11px; padding: 3px 8px; border-radius: 4px; font-weight: bold; z-index: 10; }
+        .details { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .p-title { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 8px; line-height: 1.4; }
+        .p-price { font-size: 18px; font-weight: bold; color: #ff6e40; margin-bottom: 12px; }
+        .p-old-price { font-size: 12px; color: #999; text-decoration: line-through; margin-left: 6px; }
         
-        /* Buttons Group */
-        .btn-group { display: flex; gap: 5px; width: 100%; }
-        .action-btn { flex: 1; text-align: center; padding: 8px 0; font-size: 11px; font-weight: bold; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
-        .view-btn { background: #fff1ec; color: #ff6e40; border: 1px solid #ff6e40; }
-        .buy-btn { background: #25d366; color: white; }
+        /* Social Action Bar */
+        .social-actions { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-top: 1px solid #eee; border-bottom: 1px solid #eee; margin-bottom: 12px; }
+        .like-btn { background: none; border: none; color: #e74c3c; font-size: 16px; cursor: pointer; display: flex; align-items: center; gap: 5px; font-weight: bold; }
+        
+        .share-group { display: flex; gap: 8px; align-items: center; }
+        .share-btn { font-size: 13px; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+        .share-fb { background-color: #1877f2; }
+        .share-wa { background-color: #25d366; }
 
-        /* Footer */
-        footer { background: #2c3e50; color: white; padding: 30px 20px; text-align: center; margin-top: 5px; font-size: 13px; }
-        .footer-links a { color: #bbb; text-decoration: none; margin: 0 5px; display: inline-block; }
+        /* Comment System */
+        .comment-section { background: #f8f9fa; padding: 10px; border-radius: 6px; margin-bottom: 15px; }
+        .comment-box { height: 80px; overflow-y: auto; font-size: 12px; margin-bottom: 8px; border-bottom: 1px solid #ddd; padding-bottom: 5px; }
+        .comment-item { margin-bottom: 5px; line-height: 1.3; }
+        .comment-item strong { color: #ff6e40; }
+        .comment-input-group { display: flex; gap: 5px; }
+        .comment-input-group input { flex: 1; padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 12px; outline: none; }
+        .comment-input-group button { background: #2c3e50; color: white; border: none; padding: 0 10px; border-radius: 4px; font-size: 12px; cursor: pointer; }
+
+        /* Buttons Group */
+        .btn-group { display: flex; gap: 8px; width: 100%; }
+        .action-btn { flex: 1; text-align: center; padding: 10px 0; font-size: 13px; font-weight: bold; text-decoration: none; border-radius: 6px; border: none; cursor: pointer; }
+        .view-btn { background: #fff1ec; color: #ff6e40; border: 1px solid #ff6e40; }
+        .buy-btn { background: #ff6e40; color: white; }
+
+        footer { background: #2c3e50; color: white; padding: 30px 20px; text-align: center; margin-top: 20px; font-size: 13px; }
     </style>
 </head>
 <body>
 
-    <!-- 📞 সচল কাস্টমার কেয়ার ও কলিং সিস্টেম -->
     <div class="top-bar">
         <a href="https://wa.me/8801408765351?text=হ্যালো, Glamour Combo। আমার কাস্টমার কেয়ার সাপোর্ট প্রয়োজন।" target="_blank">💬 কাস্টমার কেয়ার (হোয়াটসঅ্যাপ)</a> | 
         <a href="tel:+8801408765351">📞 সরাসরি কল: 01408765351</a> | 
         <a href="#" onclick="alert('আপনার অর্ডারটি বর্তমানে কোন অবস্থায় আছে তা জানতে সরাসরি আমাদের হোয়াটসঅ্যাপ নম্বরে মেসেজ দিন।')">📦 ট্র্যাক মাই অর্ডার</a>
     </div>
 
-    <!-- 🌐 নতুন লোগো এবং নেভিগেশন বার -->
     <nav>
         <div class="nav-top">
             <div class="logo">Glamour Combo</div>
             <div class="auth-container">
+                <!-- 📲 লাইভ অ্যাপ ইন্সটল বাটন (শর্তসাপেক্ষে দেখা যাবে) -->
+                <button id="pwa-install-btn" onclick="installApp()"><i class="fas fa-download"></i> অ্যাপ ডাউনলোড</button>
                 <span id="user-info"></span>
                 <button id="auth-main-btn" class="login-btn" onclick="openAuthModal()">লগইন / সাইনআপ</button>
                 <button id="logout-btn" class="logout-btn" onclick="logoutUser()">লগআউট</button>
@@ -120,7 +140,6 @@
         </div>
     </nav>
 
-    <!-- 🔐 আসল Authentication Modal Popup (Firebase-এর জন্য) -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close-modal" onclick="closeAuthModal()">&times;</span>
@@ -132,7 +151,6 @@
         </div>
     </div>
 
-    <!-- 🖼️ কাস্টমাইজড মেইন ব্যানার -->
     <div class="hero-banner">
         <h1>Glamour Combo</h1>
         <p>লঞ্চিং অফার: প্রতিটি কম্বোতে আকর্ষণীয় ছাড় এবং ফ্রি ডেলিভারি!</p>
@@ -150,65 +168,72 @@
         <div class="grid">
             
             <!-- প্রোডাক্ট ১ -->
-            <div class="card">
+            <div class="card" id="p1">
                 <span class="tag">২০% ছাড়</span>
                 <img src="https://i.ibb.co/Lh0YQwd9/IMG-7723.png" alt="Glamour Combo 1">
                 <div class="details">
                     <div class="p-title">প্রিমিয়াম এক্সক্লুসিভ গ্ল্যামার কম্বো প্যাক - রানি গোলাপী স্পেশাল</div>
-                    <div>
-                        <div class="p-price">৳ ২,৮০০ <span class="p-old-price">৳ ৩,৫০০</span></div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('প্রডাক্ট ডিটেইলস: প্রিমিয়াম কোয়ালিটি ফেব্রিক্স এবং এক্সক্লুসিভ ডিজাইন কম্বো।')"> can বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                    <div class="p-price">৳ ২,৮০০ <span class="p-old-price">৳ ৩,৫০০</span></div>
+                    
+                    <div class="social-actions">
+                        <button class="like-btn" onclick="toggleLike('p1')">
+                            <i class="far fa-heart"></i> <span class="like-count">২৪</span> লাইক
+                        </button>
+                        <div class="share-group">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
+                            <a href="https://api.whatsapp.com/send?text=এই অসাধারণ কম্বো অফারটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
                         </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment-box" id="comments-p1">
+                            <div class="comment-item"><strong>সাদিয়া:</strong> শাড়িটার ফেব্রিক্স সত্যি দারুণ ছিল! ধন্যবাদ।</div>
+                            <div class="comment-item"><strong>রাফি:</strong> কম্বো গিফট বক্সের জন্য সেরা কালেকশন।</div>
+                        </div>
+                        <div class="comment-input-group">
+                            <input type="text" id="input-p1" placeholder="একটি কমেন্ট লিখুন...">
+                            <button onclick="addComment('p1')">পোস্ট</button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" class="action-btn view-btn" onclick="alert('প্রডাক্ট ডিটেইলস: প্রিমিয়াম কোয়ালিটি ফেব্রিক্স এবং এক্সক্লুসিভ ডিজাইন কম্বো।')">বিস্তারিত</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                     </div>
                 </div>
             </div>
 
             <!-- প্রোডাক্ট ২ -->
-            <div class="card">
+            <div class="card" id="p2">
                 <span class="tag">Hot</span>
                 <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" alt="Glamour Combo 2">
                 <div class="details">
                     <div class="p-title">খাঁটি তসর সিল্ক কালার ম্যাচিং কম্বো - এক্সক্লুসিভ পার্টি কালেকশন</div>
-                    <div>
-                        <div class="p-price">৳ ৪,২০০ <span class="p-old-price">৳ ৫,০০০</span></div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('পার্টি ওয়্যার স্পেশাল ডিজাইন কালেকশন।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই তসর সিল্ক কালার কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                    <div class="p-price">৳ ৪,২০০ <span class="p-old-price">৳ ৫,০০০</span></div>
+                    
+                    <div class="social-actions">
+                        <button class="like-btn" onclick="toggleLike('p2')">
+                            <i class="far fa-heart"></i> <span class="like-count">৪২</span> লাইক
+                        </button>
+                        <div class="share-group">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
+                            <a href="https://api.whatsapp.com/send?text=এই এক্সক্লুসিভ পার্টি কালেকশন কম্বোটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- প্রোডাক্ট ৩ -->
-            <div class="card">
-                <span class="tag">নতুন</span>
-                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400" alt="Glamour Combo 3">
-                <div class="details">
-                    <div class="p-title">হ্যান্ডলুম টাঙ্গাইল ব্লক প্রিন্ট স্টাইলিশ কম্বো সেট</div>
-                    <div>
-                        <div class="p-price">৳ ১,৪ Fifty</div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('১০০% সুতি আরামদায়ক অল-সিজন কম্বো।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই টাঙ্গাইল ব্লক প্রিন্ট কম্বো সেটটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                    <div class="comment-section">
+                        <div class="comment-box" id="comments-p2">
+                            <div class="comment-item"><strong>মিতু:</strong> এটার কালার কম্বিনেশনটা চমৎকার।</div>
+                        </div>
+                        <div class="comment-input-group">
+                            <input type="text" id="input-p2" placeholder="একটি কমেন্ট লিখুন...">
+                            <button onclick="addComment('p2')">পোস্ট</button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- প্রোডাক্ট ৪ -->
-            <div class="card">
-                <span class="tag">১০% ছাড়</span>
-                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400" alt="Glamour Combo 4">
-                <div class="details">
-                    <div class="p-title">বউভাত ও ব্রাইডাল স্পেশাল রয়েল রেড কম্বো লাক্সারি প্যাক</div>
-                    <div>
-                        <div class="p-price">৳ ৬,৫০০ <span class="p-old-price">৳ ৭,২০০</span></div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('বউভাত বা যেকোনো বড় উৎসবের জন্য প্রিমিয়াম লাক্সারি কম্বো প্যাক।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই বেনারসি স্টাইলের রয়েল রেড কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
-                        </div>
+                    <div class="btn-group">
+                        <a href="#" class="action-btn view-btn" onclick="alert('পার্টি ওয়্যার স্পেশাল ডিজাইন কালেকশন।')">বিস্তারিত</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই তসর সিল্ক কালার কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                     </div>
                 </div>
             </div>
@@ -216,17 +241,13 @@
         </div>
     </div>
 
-    <!-- 👣 নতুন ফুটার সেকশন -->
     <footer>
-        <div class="footer-links">
-            <a href="#">আমাদের সম্পর্কে</a> | <a href="#">প্রাইভেসি পলিসি</a> | <a href="#">শর্তাবলী</a>
-        </div>
-        <p style="margin-top: 15px;">© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
+        <p>© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
 
-    <!-- 🧠 Firebase Configuration and Logic Script -->
+    <!-- Firebase and PWA App Logic -->
     <script>
-        // ⚠️ আপনার Firebase কনসোল থেকে পাওয়া আসল কোডটি নিচের ব্র্যাকেটের { } ভেতরে বসিয়ে দিন
+        // ⚠️ আপনার Firebase কনফিগারেশন নিচে বসান
         const firebaseConfig = {
             apiKey: "YOUR_API_KEY",
             authDomain: "YOUR_AUTH_DOMAIN",
@@ -236,57 +257,90 @@
             appId: "YOUR_APP_ID"
         };
         
-        // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
+        let currentUserEmail = null;
 
-        let isLoginMode = true;
-
-        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
-        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
-        
-        function toggleAuthMode() {
-            isLoginMode = !isLoginMode;
-            document.getElementById('modal-title').innerText = isLoginMode ? "লগইন করুন" : "নতুন অ্যাকাউন্ট তৈরি";
-            document.getElementById('modal-action-btn').innerText = isLoginMode ? "লগইন" : "সাইনআপ";
-            document.getElementById('switch-auth-text').innerText = isLoginMode ? "নতুন অ্যাকাউন্ট তৈরি করতে চান? সাইনআপ করুন" : "আগে থেকেই অ্যাকাউন্ট আছে? লগইন করুন";
+        // 📲 AUTOMATIC SERVICE WORKER INJECTION FOR GITHUB PWA
+        if ('serviceWorker' in navigator) {
+            const swCode = `self.addEventListener('fetch', function(e) { e.respondWith(fetch(e.request).catch(function() { return new Response('Offline'); })); });`;
+            const blob = new Blob([swCode], { type: 'application/javascript' });
+            const swUrl = URL.createObjectURL(blob);
+            navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Error', err));
         }
 
-        // Handle Login and Signup
-        function handleAuth() {
-            const email = document.getElementById('auth-email').value;
-            const password = document.getElementById('auth-password').value;
+        // PWA Installation Trigger
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('pwa-install-btn').style.display = 'inline-flex';
+        });
 
-            if(!email || !password) { alert('অনুগ্রহ করে ইমেল এবং পাসওয়ার্ড দুটোই লিখুন!'); return; }
-
-            if (isLoginMode) {
-                auth.signInWithEmailAndPassword(email, password)
-                    .then(() => { alert('লগইন সফল হয়েছে!'); closeAuthModal(); })
-                    .catch(error => alert('ভুল ইমেল বা পাসওয়ার্ড! অথবা অ্যাকাউন্টটি তৈরি করা নেই।'));
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('pwa-install-btn').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
             } else {
-                auth.createUserWithEmailAndPassword(email, password)
-                    .then(() => { alert('অ্যাকাউন্ট তৈরি সফল হয়েছে এবং লগইন হয়েছে!'); closeAuthModal(); })
-                    .catch(error => alert('অ্যাকাউন্ট তৈরি করা যায়নি: ' + error.message));
+                alert('আপনার ব্রাউজার বা ডিভাইসে অ্যাপটি অলরেডি ডাউনলোড করা আছে অথবা এটি সরাসরি ইনস্টল সাপোর্ট করছে না। ক্রোম ব্রাউজারের থ্রি-ডট মেনু থেকে "Add to Home Screen" এ ক্লিক করুন।');
             }
         }
 
-        function logoutUser() { auth.signOut().then(() => alert('লগআউট করা হয়েছে!')); }
+        // Interactive Functions
+        function toggleLike(id) {
+            const btn = document.querySelector(`#${id} .like-btn`);
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.innerText);
+            if(btn.classList.contains('liked')) {
+                btn.classList.remove('liked'); btn.querySelector('i').className = 'far fa-heart'; countSpan.innerText = count - 1;
+            } else {
+                btn.classList.add('liked'); btn.querySelector('i').className = 'fas fa-heart'; countSpan.innerText = count + 1;
+            }
+        }
 
-        // Realtime Auth State Monitor
+        function addComment(id) {
+            const input = document.getElementById(`input-${id}`);
+            const commentText = input.value.trim(); if(!commentText) return;
+            let senderName = currentUserEmail ? currentUserEmail.split('@')[0] : "অতিথি";
+            const commentBox = document.getElementById(`comments-${id}`);
+            const newComment = document.createElement('div');
+            newComment.className = 'comment-item';
+            newComment.innerHTML = `<strong>${senderName}:</strong> ${commentText}`;
+            commentBox.appendChild(newComment); commentBox.scrollTop = commentBox.scrollHeight; input.value = '';
+        }
+
+        let isLoginMode = true;
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+        function toggleAuthMode() { isLoginMode = !isLoginMode; document.getElementById('modal-title').innerText = isLoginMode ? "লগইন করুন" : "নতুন অ্যাকাউন্ট তৈরি"; document.getElementById('modal-action-btn').innerText = isLoginMode ? "লগইন" : "সাইনআপ"; }
+
+        function handleAuth() {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            if(!email || !password) { alert('তথ্য দিন!'); return; }
+            if (isLoginMode) {
+                auth.signInWithEmailAndPassword(email, password).then(() => { alert('লগইন সফল!'); closeAuthModal(); }).catch(() => alert('ভুল তথ্য!'));
+            } else {
+                auth.createUserWithEmailAndPassword(email, password).then(() => { alert('সাইনআপ সফল!'); closeAuthModal(); }).catch(error => alert(error.message));
+            }
+        }
+
+        function logoutUser() { auth.signOut().then(() => alert('লগআউট সফল!')); }
+
         auth.onAuthStateChanged(user => {
             const userInfo = document.getElementById('user-info');
             const authMainBtn = document.getElementById('auth-main-btn');
             const logoutBtn = document.getElementById('logout-btn');
-
             if (user) {
-                userInfo.innerText = "স্বাগতম, " + user.email.split('@')[0];
-                userInfo.style.display = "inline";
-                logoutBtn.style.display = "inline";
-                authMainBtn.style.display = "none";
+                currentUserEmail = user.email; userInfo.innerText = "স্বাগতম, " + user.email.split('@')[0];
+                userInfo.style.display = "inline"; logoutBtn.style.display = "inline"; authMainBtn.style.display = "none";
             } else {
-                userInfo.style.display = "none";
-                logoutBtn.style.display = "none";
-                authMainBtn.style.display = "inline";
+                currentUserEmail = null; userInfo.style.display = "none"; logoutBtn.style.display = "none"; authMainBtn.style.display = "inline";
             }
         });
     </script>
