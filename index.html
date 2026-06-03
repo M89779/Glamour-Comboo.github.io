@@ -4,96 +4,114 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>অনন্য শাড়ি বাজার | বাংলাদেশের সেরা ই-কমার্স শপ</title>
+    
+    <!-- Firebase Libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f4f6; color: #333; }
         
-        /* Top Bar - Responsive */
+        /* Top Bar */
         .top-bar { background-color: #f1f1f4; padding: 5px 20px; text-align: center; font-size: 11px; }
-        .top-bar a { color: #666; text-decoration: none; margin: 0 8px; inline-block; }
+        .top-bar a { color: #666; text-decoration: none; margin: 0 8px; display: inline-block; }
         
-        /* Main Navigation - Mobile Responsive Fixed */
+        /* Main Navigation */
         nav { background-color: #ffffff; padding: 15px 20px; display: flex; flex-direction: column; gap: 10px; border-bottom: 2px solid #ff6e40; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-top { display: flex; justify-content: space-between; align-items: center; width: 100%; }
-        .logo { font-size: 20px; font-weight: bold; color: #ff6e40; text-transform: uppercase; white-space: nowrap; }
-        .login-btn { background-color: #ff6e40; color: white !important; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 600; }
+        .logo { font-size: 20px; font-weight: bold; color: #ff6e40; text-transform: uppercase; }
+        
+        /* Auth Styles */
+        .auth-container { display: flex; align-items: center; gap: 10px; }
+        .login-btn, .logout-btn { background-color: #ff6e40; color: white !important; padding: 6px 12px; border-radius: 4px; text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; border: none; }
+        .logout-btn { background-color: #e74c3c; display: none; }
+        #user-info { font-size: 13px; font-weight: bold; color: #2c3e50; display: none; }
+
+        /* Modal Popup for Login */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-content { background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 400px; text-align: center; position: relative; }
+        .modal-content h3 { margin-bottom: 20px; color: #ff6e40; }
+        .modal-content input { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; }
+        .modal-btn { background: #ff6e40; color: white; border: none; padding: 10px 20px; width: 100%; border-radius: 4px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #999; }
+        .switch-text { font-size: 12px; margin-top: 15px; color: #666; cursor: pointer; text-decoration: underline; }
         
         .search-box { width: 100%; display: flex; }
-        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; outline: none; font-size: 14px; }
-        .search-box button { padding: 10px 20px; background: #ff6e40; border: none; color: white; border-radius: 0 4px 4px 0; cursor: pointer; font-size: 14px; }
+        .search-box input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px 0 0 4px; outline: none; }
+        .search-box button { padding: 10px 20px; background: #ff6e40; border: none; color: white; border-radius: 0 4px 4px 0; cursor: pointer; }
 
-        /* Computer/Desktop view adjustments */
         @media (min-width: 768px) {
-            nav { flex-direction: row; justify-content: space-between; align-items: center; padding: 15px 50px; gap: 0; }
+            nav { flex-direction: row; justify-content: space-between; padding: 15px 50px; gap: 0; }
             .nav-top { width: auto; gap: 20px; }
             .search-box { width: 45%; }
-            .top-bar { text-align: right; padding: 5px 50px; font-size: 12px; }
-            .top-bar a { margin-left: 15px; margin-right: 0; }
+            .top-bar { text-align: right; padding: 5px 50px; }
         }
 
-        /* Mega Banner */
+        /* Banner */
         .hero-banner { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://i.ibb.co/Lh0YQwd9/IMG-7723.png') no-repeat center center/cover; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 15px; }
-        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
-        .hero-banner p { font-size: 15px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
-        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); font-size: 15px; }
+        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero-banner p { font-size: 15px; margin-bottom: 20px; }
+        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; }
 
-        @media (min-width: 768px) {
-            .hero-banner h1 { font-size: 40px; }
-            .hero-banner p { font-size: 18px; }
-        }
-
-        /* Badges */
+        /* Features */
         .features { display: flex; flex-wrap: wrap; justify-content: space-around; background: white; padding: 15px; margin: 15px auto; max-width: 1200px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); gap: 10px; }
-        .feat-item { font-weight: bold; color: #555; font-size: 13px; white-space: nowrap; }
+        .feat-item { font-weight: bold; color: #555; font-size: 13px; }
 
-        /* Main Store Container */
+        /* Store Products */
         .container { max-width: 1200px; margin: 0 auto; padding: 10px 15px; }
         .section-title { font-size: 20px; color: #222; margin-bottom: 20px; border-left: 4px solid #ff6e40; padding-left: 10px; }
         
-        /* Product Grid System */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; margin-bottom: 40px; }
-        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; } }
+        @media (min-width: 480px) { .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); } }
         
-        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: 0.3s; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(0,0,0,0.15); }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); display: flex; flex-direction: column; justify-content: space-between; position: relative; }
         .card img { width: 100%; height: 200px; object-fit: cover; }
-        @media (min-width: 480px) { .card img { height: 250px; } }
-        
-        .tag { position: absolute; top: 10px; left: 10px; background: #ff6e40; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; font-weight: bold; }
+        .tag { position: absolute; top: 10px; left: 10px; background: #ff6e40; color: white; font-size: 10px; padding: 2px 6px; border-radius: 3px; }
         .details { padding: 10px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .p-title { font-size: 13px; font-weight: 600; color: #333; height: 38px; overflow: hidden; margin-bottom: 5px; line-height: 1.3; }
+        .p-title { font-size: 13px; font-weight: 600; color: #333; height: 38px; overflow: hidden; margin-bottom: 5px; }
         .p-price { font-size: 16px; font-weight: bold; color: #ff6e40; margin-bottom: 10px; }
-        .p-old-price { font-size: 11px; color: #999; text-decoration: line-through; margin-left: 5px; }
         
-        /* Buttons Group */
         .btn-group { display: flex; gap: 5px; width: 100%; }
-        .action-btn { flex: 1; text-align: center; padding: 8px 0; font-size: 11px; font-weight: bold; text-decoration: none; border-radius: 4px; border: none; cursor: pointer; }
+        .action-btn { flex: 1; text-align: center; padding: 8px 0; font-size: 11px; font-weight: bold; text-decoration: none; border-radius: 4px; }
         .view-btn { background: #fff1ec; color: #ff6e40; border: 1px solid #ff6e40; }
         .buy-btn { background: #25d366; color: white; }
 
-        /* Footer */
         footer { background: #2c3e50; color: white; padding: 30px 20px; text-align: center; margin-top: 5px; font-size: 13px; }
-        .footer-links a { color: #bbb; text-decoration: none; margin: 0 5px; display: inline-block; }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
-        <a href="#">কাস্টমার কেয়ার</a> | 
-        <a href="#">ট্র্যাক মাই অর্ডার</a> | 
-        <a href="#">সাহায্য নিন</a>
+        <a href="#">কাস্টমার কেয়ার</a> | <a href="#">ট্র্যাক মাই অর্ডার</a> | <a href="#">সাহায্য নিন</a>
     </div>
 
     <nav>
         <div class="nav-top">
             <div class="logo">অনন্য শাড়ি বাজার</div>
-            <a href="#" class="login-btn" onclick="alert('লগইন সিস্টেমটি ফ্রি ডোমেইনে ডেমো হিসেবে আছে!')">লগইন / সাইনআপ</a>
+            <div class="auth-container">
+                <span id="user-info"></span>
+                <button id="auth-main-btn" class="login-btn" onclick="openAuthModal()">লগইন / সাইনআপ</button>
+                <button id="logout-btn" class="logout-btn" onclick="logoutUser()">লগআউট</button>
+            </div>
         </div>
         <div class="search-box">
             <input type="text" placeholder="দারাজের মতো শাড়ি খুঁজুন...">
             <button>খুঁজুন</button>
         </div>
     </nav>
+
+    <!-- Authentication Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+            <h3 id="modal-title">লগইন করুন</h3>
+            <input type="email" id="auth-email" placeholder="আপনার ইমেল লিখুন">
+            <input type="password" id="auth-password" placeholder="পাসওয়ার্ড লিখুন">
+            <button class="modal-btn" id="modal-action-btn" onclick="handleAuth()">লগইন</button>
+            <p class="switch-text" id="switch-auth-text" onclick="toggleAuthMode()">নতুন অ্যাকাউন্ট তৈরি করতে চান? সাইনআপ করুন</p>
+        </div>
+    </div>
 
     <div class="hero-banner">
         <h1>অনন্য শাড়ি বুটিক হাউজ</h1>
@@ -118,9 +136,9 @@
                 <div class="details">
                     <div class="p-title">প্রিমিয়াম ঢাকাই হাফ সিল্ক জামদানি শাড়ি - রানি গোলাপী</div>
                     <div>
-                        <div class="p-price">৳ ২,৮০০ <span class="p-old-price">৳ ৩,৫০০</span></div>
+                        <div class="p-price">৳ ২,৮০০</div>
                         <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('শাড়ির সুতা: হাফ সিল্ক, দৈর্ঘ্য: ১২ হাত।')">বিস্তারিত</a>
+                            <a href="#" class="action-btn view-btn" onclick="alert('শাড়ির সুতা: হাফ সিল্ক, দৈর্ঘ্য: ১২ হাত।')">বাস্তারিত</a>
                             <a href="https://wa.me/8801408765351?text=আমি এই রানি গোলাপী জামদানি শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                         </div>
                     </div>
@@ -134,55 +152,10 @@
                 <div class="details">
                     <div class="p-title">খাঁটি তসর সিল্ক শাড়ি - এক্সক্লুসিভ পার্টি ডিজাইন</div>
                     <div>
-                        <div class="p-price">৳ ৪,২০০ <span class="p-old-price">৳ ৫,০০০</span></div>
+                        <div class="p-price">৳ ৪,২০০</div>
                         <div class="btn-group">
                             <a href="#" class="action-btn view-btn" onclick="alert('পার্টি ওয়্যার সিল্ক শাড়ি, ব্লাউজ পিস সহ।')">বিস্তারিত</a>
                             <a href="https://wa.me/8801408765351?text=আমি এই তসর সিল্ক শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- শাড়ি ৩ -->
-            <div class="card">
-                <span class="tag">নতুন</span>
-                <img src="https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?w=400" alt="সুতি">
-                <div class="details">
-                    <div class="p-title">হ্যান্ডলুম টাঙ্গাইল ব্লকের সুতি শাড়ি - ক্যাজুয়াল পরিধান</div>
-                    <div>
-                        <div class="p-price">৳ ১,৪৫০</div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('১০০% সুতি আরামদায়ক শাড়ি।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই টাঙ্গাইল সুতি শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-const firebaseConfig = {
-            apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
-            authDomain: "glamour-combo.firebaseapp.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);         
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-            <!-- শাড়ি ৪ -->
-            <div class="card">
-                <span class="tag">১০% ছাড়</span>
-                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400" alt="কাতান">
-                <div class="details">
-                    <div class="p-title">বউভাত স্পেশাল বেনারসি কাতান শাড়ি - রয়েল রেড</div>
-                    <div>
-                        <div class="p-price">৳ we,৫০০ <span class="p-old-price">৳ ৭,২০০</span></div>
-                        <div class="btn-group">
-                            <a href="#" class="action-btn view-btn" onclick="alert('বউভাতের জন্য প্রিমিয়াম বেনারসি শাড়ি।')">বিস্তারিত</a>
-                            <a href="https://wa.me/8801408765351?text=আমি এই বেনারসি কাতান শাড়িটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                         </div>
                     </div>
                 </div>
@@ -192,11 +165,73 @@ const analytics = getAnalytics(app);
     </div>
 
     <footer>
-        <div class="footer-links">
-            <a href="#">আমাদের সম্পর্কে</a> | <a href="#">প্রাইভেসি পলিসি</a> | <a href="#">শর্তাবলী</a>
-        </div>
-        <p style="margin-top: 15px;">© 2026 অনন্য শাড়ি বাজার। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
+        <p>© 2026 অনন্য শাড়ি বাজার। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
 
+    <!-- Firebase Script Logic -->
+    <script>
+        // আপনার পাঠানো আসল ফায়ারবেস কনফিগারেশনটি এখানে বসানো হয়েছে
+        const firebaseConfig = {
+            apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
+            authDomain: "glamour-combo.firebaseapp.com",
+            projectId: "glamour-combo",
+            storageBucket: "glamour-combo.firebasestorage.app",
+            messagingSenderId: "722013517072",
+            appId: "1:722013517072:web:2476845a3abf8a73f3a195",
+            measurementId: "G-NP50MQ7024"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+
+        let isLoginMode = true;
+
+        function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
+        function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
+        
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            document.getElementById('modal-title').innerText = isLoginMode ? "লগইন করুন" : "নতুন অ্যাকাউন্ট তৈরি";
+            document.getElementById('modal-action-btn').innerText = isLoginMode ? "লগইন" : "সাইনআপ";
+            document.getElementById('switch-auth-text').innerText = isLoginMode ? "নতুন অ্যাকাউন্ট তৈরি করতে চান? সাইনআপ করুন" : "আগে থেকেই অ্যাকাউন্ট আছে? লগইন করুন";
+        }
+
+        function handleAuth() {
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+
+            if(!email || !password) { alert('অনুগ্রহ করে ইমেল এবং পাসওয়ার্ড দুটোই লিখুন!'); return; }
+
+            if (isLoginMode) {
+                auth.signInWithEmailAndPassword(email, password)
+                    .then(() => { alert('লগইন সফল হয়েছে!'); closeAuthModal(); })
+                    .catch(error => alert('ভুল ইমেল বা পাসওয়ার্ড! অথবা অ্যাকাউন্টটি তৈরি করা নেই।'));
+            } else {
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then(() => { alert('অ্যাকাউন্ট তৈরি সফল হয়েছে এবং লগইন হয়েছে!'); closeAuthModal(); })
+                    .catch(error => alert('অ্যাকাউন্ট তৈরি করা যায়নি: ' + error.message));
+            }
+        }
+
+        function logoutUser() { auth.signOut().then(() => alert('লগআউট করা হয়েছে!')); }
+
+        auth.onAuthStateChanged(user => {
+            const userInfo = document.getElementById('user-info');
+            const authMainBtn = document.getElementById('auth-main-btn');
+            const logoutBtn = document.getElementById('logout-btn');
+
+            if (user) {
+                userInfo.innerText = "স্বাগতম, " + user.email.split('@')[0];
+                userInfo.style.display = "inline";
+                logoutBtn.style.display = "inline";
+                authMainBtn.style.display = "none";
+            } else {
+                userInfo.style.display = "none";
+                logoutBtn.style.display = "none";
+                authMainBtn.style.display = "inline";
+            }
+        });
+    </script>
 </body>
 </html>
