@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Glamour Combo | বাংলাদেশের সেরা ই-কমার্স শপ</title>
     
-    <!-- PWA / Mobile App Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Glamour Combo">
     <link rel="apple-touch-icon" href="https://i.ibb.co/Lh0YQwd9/IMG-7723.png">
     
-    <!-- Injecting Manifest dynamically for PWA without external file -->
     <link rel="manifest" href='data:application/json,{"name":"Glamour Combo E-Shop","short_name":"Glamour Combo","start_url":".","display":"standalone","background_color":"#ffffff","theme_color":"#ff6e40","icons":[{"src":"https://i.ibb.co/Lh0YQwd9/IMG-7723.png","sizes":"512x512","type":"image/png"}]}'>
 
-    <!-- Firebase Libraries -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -127,7 +124,6 @@
         <div class="nav-top">
             <div class="logo">Glamour Combo</div>
             <div class="auth-container">
-                <!-- 📲 লাইভ অ্যাপ ইন্সটল বাটন -->
                 <button id="pwa-install-btn" onclick="installApp()"><i class="fas fa-download"></i> অ্যাপ ডাউনলোড</button>
                 <span id="user-info"></span>
                 <button id="auth-main-btn" class="login-btn" onclick="openAuthModal()">লগইন / সাইনআপ</button>
@@ -167,7 +163,6 @@
         <h2 class="section-title">আজকের ধামাকা অফার (Flash Sale)</h2>
         <div class="grid">
             
-            <!-- প্রোডাক্ট ১ -->
             <div class="card" id="p1">
                 <span class="tag">২০% ছাড়</span>
                 <img src="https://i.ibb.co/Lh0YQwd9/IMG-7723.png" alt="Glamour Combo 1">
@@ -187,7 +182,7 @@
 
                     <div class="comment-section">
                         <div class="comment-box" id="comments-p1">
-                            <div class="comment-item"><strong>সাদিয়া:</strong> শাড়িটার ফেব্রিক্স সত্যি দারুণ ছিল! ধন্যবাদ।</div>
+                            <div class="comment-item"><strong>সادিয়া:</strong> শাড়িটার ফেব্রিক্স সত্যি দারুণ ছিল! ধন্যবাদ।</div>
                             <div class="comment-item"><strong>রাফি:</strong> কম্বো গিফট বক্সের জন্য সেরা কালেকশন।</div>
                         </div>
                         <div class="comment-input-group">
@@ -203,7 +198,6 @@
                 </div>
             </div>
 
-            <!-- প্রোডাক্ট ২ -->
             <div class="card" id="p2">
                 <span class="tag">Hot</span>
                 <img src="https://images.unsplash.com/photo-1617627143750-d86bc21e42bb?w=400" alt="Glamour Combo 2">
@@ -238,6 +232,39 @@
                 </div>
             </div>
 
+            <div class="card" id="p3">
+                <span class="tag">নতুন কম্বো</span>
+                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400" alt="Glamour Combo 3">
+                <div class="details">
+                    <div class="p-title">এক্সক্লুসিভ কাতান সিল্ক ম্যাচিং কম্বো - ব্রাইডাল স্পেশাল কালেকশন</div>
+                    <div class="p-price">৳ ৫,৫০০ <span class="p-old-price">৳ ৬,৫০০</span></div>
+                    
+                    <div class="social-actions">
+                        <button class="like-btn" onclick="toggleLike('p3')">
+                            <i class="far fa-heart"></i> <span class="like-count">০</span> লাইক
+                        </button>
+                        <div class="share-group">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
+                            <a href="https://api.whatsapp.com/send?text=এই এক্সক্লুসিভ ব্রাইডাল কালেকশন কম্বোটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment-box" id="comments-p3">
+                            </div>
+                        <div class="comment-input-group">
+                            <input type="text" id="input-p3" placeholder="একটি কমেন্ট লিখুন...">
+                            <button onclick="addComment('p3')">পোস্ট</button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" class="action-btn view-btn" onclick="alert('ব্রাইডাল স্পেশাল কাতান সিল্ক ডিজাইন কালেকশন।')">বিস্তারিত</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই এক্সক্লুসিভ কাতান সিল্ক ম্যাচিং কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -245,9 +272,8 @@
         <p>© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
 
-    <!-- Firebase and PWA App Logic -->
     <script>
-        // ✅ Your Firebase configuration is now embedded perfectly
+        // Your Firebase configuration embedded perfectly
         const firebaseConfig = {
             apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
             authDomain: "glamour-combo.firebaseapp.com",
@@ -288,7 +314,7 @@
                     deferredPrompt = null;
                 });
             } else {
-                alert('আপনার ব্রাউজার বা ডিভাইসে অ্যাপটি অলরেডি ডাউনলোড করা আছে অথবা এটি সরাসরি ইনস্টল সাপোর্ট করছে না। ক্রোম ব্রাউজারের থ্রি-ডট মেনু থেকে "Add to Home Screen" 에 ক্লিক করুন।');
+                alert('আপনার ব্রাউজার বা ডিভাইসে অ্যাপটি অলরেডি ডাউনলোড করা আছে অথবা এটি সরাসরি ইনস্টল সাপোর্ট করছে না। ক্রোম ব্রাউজারের থ্রি-ডট মেনু থেকে "Add to Home Screen" এ ক্লিক করুন।');
             }
         }
 
