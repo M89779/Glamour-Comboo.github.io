@@ -317,6 +317,38 @@
                     </div>
                 </div>
             </div>
+    <!-- প্রোডাক্ট ৫ (টি-শার্ট/শার্ট কার্ড) -->
+            <div class="card" id="p5">
+                <span class="tag">Premium</span>
+                <img src="https://i.ibb.co/23ZSj1VV/IMG-20260606-011031.jpg" alt="Indigo Premium Casual Shirt" style="width: 100%; height: 280px; object-fit: contain; background: #f8f9fa;">
+                <div class="details">
+                    <div class="p-title">Indigo Premium Printed Casual Shirt for Men</div>
+                    <div class="p-price">৳ ১,২০০ <span class="p-old-price">৳ ১,৮০০</span></div>
+                    
+                    <div class="social-actions">
+                        <button class="like-btn" onclick="toggleLike('p5')">
+                            <i class="far fa-heart"></i> <span class="like-count">56</span> Like
+                        </button>
+                        <div class="share-group">
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
+                            <a href="https://api.whatsapp.com/send?text=এই অসাধারণ Indigo শার্টটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="comment-section">
+                        <div class="comment-box" id="comments-p5"></div>
+                        <div class="comment-input-group">
+                            <input type="text" id="input-p5" placeholder="একটি কমেন্ট লিখুন...">
+                            <button onclick="addComment('p5')">পোস্ট</button>
+                        </div>
+                    </div>
+
+                    <div class="btn-group">
+                        <a href="#" class="action-btn view-btn" onclick="alert('Indigo Premium Printed Casual Shirt: প্রিমিয়াম কটন ফেব্রিক্স এবং স্মার্ট লুক।')">বিস্তারিত</a>
+                        <a href="https://wa.me/8801408765351?text=আমি Indigo Premium Printed Casual Shirt-টি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                    </div>
+                </div>
+            </div>
     <footer>
         <p>© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
@@ -416,5 +448,19 @@
             }
         });
     </script>
+    // সার্চ ফাংশন
+document.querySelector('.search-box button').addEventListener('click', function() {
+    const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
+    const products = document.querySelectorAll('.card');
+
+    products.forEach(product => {
+        const title = product.querySelector('.p-title').innerText.toLowerCase();
+        if (title.includes(searchTerm)) {
+            product.style.display = "block"; // মিলে গেলে দেখাবে
+        } else {
+            product.style.display = "none";  // না মিললে লুকিয়ে ফেলবে
+        }
+    });
+});
 </body>
 </html>
