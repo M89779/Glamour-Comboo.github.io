@@ -448,18 +448,22 @@
             }
         });
     </script>
+   <script>
     // সার্চ ফাংশন
-document.querySelector('.search-box button').addEventListener('click', function() {
-    const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
-    const products = document.querySelectorAll('.card');
+    document.querySelector('.search-box button').addEventListener('click', function() {
+        const searchTerm = document.querySelector('.search-box input').value.toLowerCase();
+        const products = document.querySelectorAll('.card');
 
-    products.forEach(product => {
-        const title = product.querySelector('.p-title').innerText.toLowerCase();
-        if (title.includes(searchTerm)) {
-            product.style.display = "block"; // মিলে গেলে দেখাবে
-        } else {
-            product.style.display = "none";  // না মিললে লুকিয়ে ফেলবে
-        }
+        products.forEach(product => {
+            const title = product.querySelector('.p-title').innerText.toLowerCase();
+            if (title.includes(searchTerm)) {
+                product.style.display = "block"; // মিলে গেলে দেখাবে
+            } else {
+                product.style.display = "none";  // না মিললে লুকিয়ে ফেলবে
+            }
+        });
+    });
+</script>
     });
 });
 </body>
