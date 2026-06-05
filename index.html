@@ -59,10 +59,22 @@
             .top-bar { text-align: right; padding: 5px 50px; font-size: 12px; }
         }
 
-        /* Banner */
-        .hero-banner { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=1200') no-repeat center center/cover; height: 350px; display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center; padding: 0 15px; }
-        .hero-banner h1 { font-size: 32px; margin-bottom: 10px; }
-        .shop-now-btn { background: #fff; color: #ff6e40; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; }
+        /* Hero Banner - 🌟 আপনার নতুন ছবি এখানে ব্যাকগ্রাউন্ড হিসেবে যুক্ত করা হয়েছে */
+        .hero-banner { 
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.ibb.co/9H0CDXLX/638733218-1432252762022132-4227980630140353039-n.jpg') no-repeat center center/cover; 
+            height: 380px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            color: white; 
+            text-align: center; 
+            padding: 0 15px; 
+        }
+        .hero-banner h1 { font-size: 36px; margin-bottom: 12px; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        .hero-banner p { font-size: 16px; margin-bottom: 20px; text-shadow: 1px 1px 3px rgba(0,0,0,0.6); }
+        .shop-now-btn { background: #ff6e40; color: white; padding: 12px 30px; font-weight: bold; text-decoration: none; border-radius: 25px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .shop-now-btn:hover { background: #e65c00; }
 
         .features { display: flex; flex-wrap: wrap; justify-content: space-around; background: white; padding: 15px; margin: 15px auto; max-width: 1200px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); gap: 10px; }
         .feat-item { font-weight: bold; color: #555; font-size: 13px; }
@@ -182,7 +194,7 @@
 
                     <div class="comment-section">
                         <div class="comment-box" id="comments-p1">
-                            <div class="comment-item"><strong>সادিয়া:</strong> শাড়িটার ফেব্রিক্স সত্যি দারুণ ছিল! ধন্যবাদ।</div>
+                            <div class="comment-item"><strong>সাদিয়া:</strong> শাড়িটার ফেব্রিক্স সত্যি দারুণ ছিল! ধন্যবাদ।</div>
                             <div class="comment-item"><strong>রাফি:</strong> কম্বো গিফট বক্সের জন্য সেরা কালেকশন।</div>
                         </div>
                         <div class="comment-input-group">
@@ -193,7 +205,7 @@
 
                     <div class="btn-group">
                         <a href="#" class="action-btn view-btn" onclick="alert('প্রডাক্ট ডিটেইলস: প্রিমিয়াম কোয়ালিটি ফেব্রিক্স এবং এক্সক্লুসিভ ডিজাইন কম্বো।')">বিস্তারিত</a>
-                        <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই গ্ল্যামার কম্বো রানি গোলাপী প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অर्डर করুন</a>
                     </div>
                 </div>
             </div>
@@ -234,10 +246,10 @@
 
             <div class="card" id="p3">
                 <span class="tag">নতুন কম্বো</span>
-                <img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400" alt="Glamour Combo 3">
+                <img src="https://i.ibb.co/9H0CDXLX/638733218-1432252762022132-4227980630140353039-n.jpg" alt="Glamour Combo 3">
                 <div class="details">
-                    <div class="p-title">এক্সক্লুসিভ কাতান সিল্ক ম্যাচিং কম্বো - ব্রাইডাল স্পেশাল কালেকশন</div>
-                    <div class="p-price">৳ ৫,৫০০ <span class="p-old-price">৳ ৬,৫০০</span></div>
+                    <div class="p-title">প্রিমিয়াম নিউ থ্রি-পিস কালেকশন (নতুন ড্রেস)</div>
+                    <div class="p-price">৳ ১,৮৫০ <span class="p-old-price">৳ ২,৫০০</span></div>
                     
                     <div class="social-actions">
                         <button class="like-btn" onclick="toggleLike('p3')">
@@ -245,7 +257,7 @@
                         </button>
                         <div class="share-group">
                             <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
-                            <a href="https://api.whatsapp.com/send?text=এই এক্সক্লুসিভ ব্রাইডাল কালেকশন কম্বোটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
+                            <a href="https://api.whatsapp.com/send?text=এই এক্সক্লুসিভ কালেকশন কম্বোটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
 
@@ -259,52 +271,20 @@
                     </div>
 
                     <div class="btn-group">
-                        <a href="#" class="action-btn view-btn" onclick="alert('ব্রাইডাল স্পেশাল কাতান সিল্ক ডিজাইন কালেকশন।')">বিস্তারিত</a>
-                        <a href="https://wa.me/8801408765351?text=আমি এই এক্সক্লুসিভ কাতান সিল্ক ম্যাচিং কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
+                        <a href="#" class="action-btn view-btn" onclick="alert('এক্সক্লুসিভ কমফোর্টেবল ডিজাইন কালেকশন।')">বিস্তারিত</a>
+                        <a href="https://wa.me/8801408765351?text=আমি এই নতুন কালেকশন কম্বো প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
                     </div>
                 </div>
             </div>
 
         </div>
     </div>
-<div class="card" id="p3">
-                <span class="tag">নতুন কম্বো</span>
-                <img src="<a href="https://ibb.co.com/d4sqC7zN"><img src="https://i.ibb.co.com/chKHfx7W/Whats-App-Image-2026-06-04-at-12-10-21-PM.jpg" alt="Whats-App-Image-2026-06-04-at-12-10-21-PM" border="0"></a>" alt="Glamour Combo 3">
-                <div class="details">
-                    <div class="p-title">ঐতিহ্যবাহী জামদানি শাড়ি</div>
-                    <div class="p-price">৳ ৫,৫০০ <span class="p-old-price">৳ ৬,৫০০</span></div>
-                    
-                    <div class="social-actions">
-                        <button class="like-btn" onclick="toggleLike('p3')">
-                            <i class="far fa-heart"></i> <span class="like-count">০</span> লাইক
-                        </button>
-                        <div class="share-group">
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https://9779.github.io" target="_blank" class="share-btn share-fb"><i class="fab fa-facebook"></i></a>
-                            <a href="https://api.whatsapp.com/send?text=এই এক্সক্লুসিভ ব্রাইডাল কালেকশন কম্বোটি দেখুন! https://9779.github.io" target="_blank" class="share-btn share-wa"><i class="fab fa-whatsapp"></i></a>
-                        </div>
-                    </div>
 
-                    <div class="comment-section">
-                        <div class="comment-box" id="comments-p3">
-                            </div>
-                        <div class="comment-input-group">
-                            <input type="text" id="input-p3" placeholder="একটি কমেন্ট লিখুন...">
-                            <button onclick="addComment('p3')">পোস্ট</button>
-                        </div>
-                    </div>
-
-                    <div class="btn-group">
-                        <a href="#" class="action-btn view-btn" onclick="alert('ঐতিহ্যবাহী জামদানি শাড়ি ডিজাইন কালেকশন।')">বিস্তারিত</a>
-                        <a href="https://wa.me/8801408765351?text=আমি এই এক্সক্লুসিভ ঐতিহ্যবাহী জামদানি শাড়ি প্যাকটি অর্ডার করতে চাই।" class="action-btn buy-btn" target="_blank">অর্ডার করুন</a>
-                    </div>
-                </div>
-            </div>
     <footer>
         <p>© 2026 Glamour Combo। দারাজের মতো বিশ্বস্ত ও দ্রুত হোম ডেলিভারি!</p>
     </footer>
 
     <script>
-        // Your Firebase configuration embedded perfectly
         const firebaseConfig = {
             apiKey: "AIzaSyAITjcUhpPLOGFBhR1mpuWFtc69A2ZxMnk",
             authDomain: "glamour-combo.firebaseapp.com",
@@ -319,7 +299,6 @@
         const auth = firebase.auth();
         let currentUserEmail = null;
 
-        // AUTOMATIC SERVICE WORKER INJECTION FOR GITHUB PWA
         if ('serviceWorker' in navigator) {
             const swCode = `self.addEventListener('fetch', function(e) { e.respondWith(fetch(e.request).catch(function() { return new Response('Offline'); })); });`;
             const blob = new Blob([swCode], { type: 'application/javascript' });
@@ -327,7 +306,6 @@
             navigator.serviceWorker.register(swUrl).catch(err => console.log('SW Error', err));
         }
 
-        // PWA Installation Trigger
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
@@ -349,7 +327,6 @@
             }
         }
 
-        // Interactive Functions
         function toggleLike(id) {
             const btn = document.querySelector(`#${id} .like-btn`);
             const countSpan = btn.querySelector('.like-count');
